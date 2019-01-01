@@ -3,13 +3,6 @@ package org.geelato.utils;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-/**
- * 关于异常的工具类.
- *
- * 参考了guava的Throwables。
- *
- * @author calvin
- */
 public class Exceptions {
 
     /**
