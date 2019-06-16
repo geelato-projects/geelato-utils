@@ -18,6 +18,10 @@ public class UIDGenerator {
 
     private static AtomicInteger atomicInteger = new AtomicInteger(0);
 
+//    GregorianCalendar calendar = new GregorianCalendar();
+//        calendar.set(2016, 6, 6, 6, 6, 6)
+//    BEGIN_DATE = calendar.getTimeInMillis();
+
     public static long generate(int businessType) {
         StringBuilder binaryStr = new StringBuilder("0");
 
