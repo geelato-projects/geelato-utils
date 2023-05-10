@@ -6,7 +6,6 @@
         <artifactId>geelato-parent</artifactId>
         <groupId>org.geelato</groupId>
         <version>1.0.2-SNAPSHOT</version>
-        <relativePath>../geelato-parent</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -56,26 +55,12 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <!--<addClasspath>true</addClasspath>-->
-                            <!--<classpathPrefix>lib/</classpathPrefix>-->
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <!--<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>-->
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <!--<distributionManagement>-->
-        <!--<snapshotRepository>-->
-            <!--<id>oss</id>-->
-            <!--<url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
-        <!--</snapshotRepository>-->
-        <!--<repository>-->
-            <!--<id>oss</id>-->
-            <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-        <!--</repository>-->
-    <!--</distributionManagement>-->
 
 </project>
