@@ -164,7 +164,9 @@ public class ClassScanner {
             try {
                 int index = clazzName.lastIndexOf(".class");
                 String name = clazzName;
-                if (index > 0) name = clazzName.substring(0, index);
+                if (index > 0) {
+                    name = clazzName.substring(0, index);
+                }
                 clazz = Class.forName(name);
             } catch (ClassNotFoundException e) {
                 logger.error("", e);
