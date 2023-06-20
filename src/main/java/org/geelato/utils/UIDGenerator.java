@@ -32,7 +32,6 @@ public class UIDGenerator {
         binaryStr.append(wrapMachineBinaryStr(localMachineAppend));
 
         binaryStr.append(wrapSequencePeyMachine());
-//        System.out.println(">" + binaryStr.toString());
         return Long.parseLong(binaryStr.toString(), 2);
     }
 
