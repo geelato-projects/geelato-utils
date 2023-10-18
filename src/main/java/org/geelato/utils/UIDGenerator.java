@@ -15,26 +15,24 @@ public class UIDGenerator {
 
     private static final long BEGIN_DATE = new Date(116, 6, 6, 6, 6, 6).getTime();
     private static final int localMachineAppend = Integer.parseInt(ip());
-
     private static AtomicInteger atomicInteger = new AtomicInteger(0);
-
-//    GregorianCalendar calendar = new GregorianCalendar();
-//        calendar.set(2016, 6, 6, 6, 6, 6)
-//    BEGIN_DATE = calendar.getTimeInMillis();
-
-    public static long generate(int businessType) {
-        StringBuilder binaryStr = new StringBuilder("0");
-
-        binaryStr.append(wrapTimeBinaryStr());
-        binaryStr.append(wrapBusinessBinaryStr(businessType));
-
-        binaryStr.append(wrapRoomBinaryStr(1));
-        binaryStr.append(wrapMachineBinaryStr(localMachineAppend));
-
-        binaryStr.append(wrapSequencePeyMachine());
-        return Long.parseLong(binaryStr.toString(), 2);
+    private static SnowFlake snowFlake=new SnowFlake(1,1);
+//
+//    public static long generate(int businessType) {
+//        StringBuilder binaryStr = new StringBuilder("0");
+//
+//        binaryStr.append(wrapTimeBinaryStr());
+//        binaryStr.append(wrapBusinessBinaryStr(businessType));
+//
+//        binaryStr.append(wrapRoomBinaryStr(1));
+//        binaryStr.append(wrapMachineBinaryStr(localMachineAppend));
+//
+//        binaryStr.append(wrapSequencePeyMachine());
+//        return Long.parseLong(binaryStr.toString(), 2);
+//    }
+    public static long generate() {
+        return snowFlake.nextId();
     }
-
     /**
      * 39 bit
      */
@@ -85,12 +83,12 @@ public class UIDGenerator {
     }
 
     public static void main(String[] args) {
-        System.out.println(generate(1));
-        System.out.println(generate(1));
-        System.out.println(generate(2));
-        System.out.println(generate(2));
-        System.out.println(generate(2));
-        System.out.println(generate(4));
+        System.out.println(generate());
+        System.out.println(generate());
+        System.out.println(generate());
+        System.out.println(generate());
+        System.out.println(generate());
+        System.out.println(generate());
         try {
             System.out.println(InetAddress.getLocalHost().getHostAddress().split("\\.")[3]);
         } catch (UnknownHostException e) {
