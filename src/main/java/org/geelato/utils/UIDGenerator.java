@@ -82,17 +82,4 @@ public class UIDGenerator {
         return "1";
     }
 
-    public static void main(String[] args) {
-        System.out.println(generate());
-        System.out.println(generate());
-        System.out.println(generate());
-        System.out.println(generate());
-        System.out.println(generate());
-        System.out.println(generate());
-        try {
-            System.out.println(InetAddress.getLocalHost().getHostAddress().split("\\.")[3]);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }
 }
