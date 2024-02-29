@@ -111,4 +111,29 @@ public class ZipUtils {
         }
         return packageData;
     }
+
+    public static String readPackageData(File file,String fileSuffix) {
+        String packageData="";
+        try (ZipFile zipFile = new ZipFile(file)) {
+            Enumeration<? extends ZipEntry> entries = zipFile.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = entries.nextElement();
+                String entryName=entry.getName();
+                String suffix = entryName.substring(entryName.lastIndexOf("."));
+                if(fileSuffix.equals(suffix)){
+                    try (InputStream inputStream = zipFile.getInputStream(entry)) {
+                        Reader reader = new InputStreamReader(inputStream, "UTF-8");
+                        BufferedReader bufferedReader = new BufferedReader(reader);
+                        String line ="";
+                        while((line=bufferedReader.readLine()) != null) {
+                            packageData+=line;
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return packageData;
+    }
 }
