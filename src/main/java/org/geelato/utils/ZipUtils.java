@@ -86,7 +86,7 @@ public class ZipUtils {
         }
     }
 
-    public static String readPackageData(String packagePath,String fileSuffix) {
+    public static String readPackageData(String packagePath,String fileSuffix) throws IOException {
         String filePath=packagePath;
         String packageData="";
         try (ZipFile zipFile = new ZipFile(filePath)) {
@@ -106,8 +106,10 @@ public class ZipUtils {
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            throw ex;
+
         }
         return packageData;
     }
