@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class SqlParams extends SimpleBindings {
 
-    private static Logger logger = LoggerFactory.getLogger(SqlParams.class);
+    private static final Logger logger = LoggerFactory.getLogger(SqlParams.class);
 
     /**
      * 构建参数，

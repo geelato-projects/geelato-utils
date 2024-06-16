@@ -22,22 +22,7 @@ import java.util.jar.JarFile;
  */
 public class ClassScanner {
 
-    private static Logger logger = LoggerFactory.getLogger(ClassScanner.class);
-
-    public static void main(String[] args) {
-        // 标识是否要遍历该包路径下子包的类名
-//        boolean recursive = true;
-//        // 指定的包名
-//        String pkg = "lab.sodino.clazz";
-//        List list = null;
-//      list = getClassList(pkg, recursive, null);
-        // 增加 author.class的过滤项，即可只选出ClassTestDemo
-//        list = getClassList(pkg, recursive, author.class);
-
-//        for (int i = 0; i < list.size(); i++) {
-//            System.out.println(i + ":" + list.get(i));
-//        }
-    }
+    private static final Logger logger = LoggerFactory.getLogger(ClassScanner.class);
 
     public static List<Class<?>> scan(String pkgName, boolean isRecursive, Class<? extends Annotation> annotation) {
         List<Class<?>> classList = new ArrayList<Class<?>>();
