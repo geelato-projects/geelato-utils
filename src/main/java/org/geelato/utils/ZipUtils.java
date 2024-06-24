@@ -24,14 +24,15 @@ public class ZipUtils {
         }
     }
 
-    public static void deCompressPackage(String packagePath,String targetPath){
-        String packageFilePath=packagePath;
-        String targetDirectoryPath=targetPath;
-        File packageFIle=new File(packageFilePath);
-        File targetDirectory=new File(targetDirectoryPath);
-        decompressPackage(packageFIle,targetDirectory);
+    public static void deCompressPackage(String packagePath, String targetPath) {
+        String packageFilePath = packagePath;
+        String targetDirectoryPath = targetPath;
+        File packageFIle = new File(packageFilePath);
+        File targetDirectory = new File(targetDirectoryPath);
+        decompressPackage(packageFIle, targetDirectory);
     }
-    private  static void addDirectoryToZip(ZipOutputStream zos, File sourceFile, String parentDirectoryName) throws IOException {
+
+    private static void addDirectoryToZip(ZipOutputStream zos, File sourceFile, String parentDirectoryName) throws IOException {
         File[] files = sourceFile.listFiles();
         byte[] buffer = new byte[1024];
         int bytesRead;
@@ -42,11 +43,11 @@ public class ZipUtils {
                 continue;
             }
             FileInputStream fis = new FileInputStream(file);
-            String entryName ;
-            if(!StringUtils.isEmpty(parentDirectoryName)){
-                entryName=parentDirectoryName + "/" + file.getName();
-            }else{
-                entryName= file.getName();
+            String entryName;
+            if (!StringUtils.isEmpty(parentDirectoryName)) {
+                entryName = parentDirectoryName + "/" + file.getName();
+            } else {
+                entryName = file.getName();
             }
 
             ZipEntry zipEntry = new ZipEntry(entryName);
@@ -86,49 +87,61 @@ public class ZipUtils {
         }
     }
 
-    public static String readPackageData(String packagePath,String fileSuffix) throws IOException {
-        String filePath=packagePath;
-        String packageData="";
+    public static String readPackageData(String packagePath, String fileSuffix) throws IOException {
+        String filePath = packagePath;
+        String packageData = "";
+        InputStream inputStream = null;
+        Reader reader = null;
+        BufferedReader bufferedReader = null;
         try (ZipFile zipFile = new ZipFile(filePath)) {
             Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                String entryName=entry.getName();
+                String entryName = entry.getName();
                 String suffix = entryName.substring(entryName.lastIndexOf("."));
-                if(fileSuffix.equals(suffix)){
-                    try (InputStream inputStream = zipFile.getInputStream(entry)) {
-                        Reader reader = new InputStreamReader(inputStream, "UTF-8");
-                        BufferedReader bufferedReader = new BufferedReader(reader);
-                        String line ="";
-                        while((line=bufferedReader.readLine()) != null) {
-                            packageData+=line;
-                        }
+                if (fileSuffix.equals(suffix)) {
+                    inputStream = zipFile.getInputStream(entry);
+                    reader = new InputStreamReader(inputStream, "UTF-8");
+                    bufferedReader = new BufferedReader(reader);
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null) {
+                        packageData += line;
                     }
                 }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
             throw ex;
-
+        } finally {
+            if (bufferedReader != null) {
+                bufferedReader.close();
+            }
+            if (reader != null) {
+                reader.close();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
         }
+
         return packageData;
     }
 
-    public static String readPackageData(File file,String fileSuffix) {
-        String packageData="";
+    public static String readPackageData(File file, String fileSuffix) {
+        String packageData = "";
         try (ZipFile zipFile = new ZipFile(file)) {
             Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                String entryName=entry.getName();
+                String entryName = entry.getName();
                 String suffix = entryName.substring(entryName.lastIndexOf("."));
-                if(fileSuffix.equals(suffix)){
+                if (fileSuffix.equals(suffix)) {
                     try (InputStream inputStream = zipFile.getInputStream(entry)) {
                         Reader reader = new InputStreamReader(inputStream, "UTF-8");
                         BufferedReader bufferedReader = new BufferedReader(reader);
-                        String line ="";
-                        while((line=bufferedReader.readLine()) != null) {
-                            packageData+=line;
+                        String line = "";
+                        while ((line = bufferedReader.readLine()) != null) {
+                            packageData += line;
                         }
                     }
                 }
