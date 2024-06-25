@@ -127,8 +127,11 @@ public class ZipUtils {
         return packageData;
     }
 
-    public static String readPackageData(File file, String fileSuffix) {
+    public static String readPackageData(File file, String fileSuffix) throws IOException {
         String packageData = "";
+        InputStream inputStream = null;
+        Reader reader = null;
+        BufferedReader bufferedReader = null;
         try (ZipFile zipFile = new ZipFile(file)) {
             Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
@@ -136,19 +139,29 @@ public class ZipUtils {
                 String entryName = entry.getName();
                 String suffix = entryName.substring(entryName.lastIndexOf("."));
                 if (fileSuffix.equals(suffix)) {
-                    try (InputStream inputStream = zipFile.getInputStream(entry)) {
-                        Reader reader = new InputStreamReader(inputStream, "UTF-8");
-                        BufferedReader bufferedReader = new BufferedReader(reader);
-                        String line = "";
-                        while ((line = bufferedReader.readLine()) != null) {
-                            packageData += line;
-                        }
+                    inputStream = zipFile.getInputStream(entry);
+                    reader = new InputStreamReader(inputStream, "UTF-8");
+                    bufferedReader = new BufferedReader(reader);
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null) {
+                        packageData += line;
                     }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (bufferedReader != null) {
+                bufferedReader.close();
+            }
+            if (reader != null) {
+                reader.close();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
         }
+
         return packageData;
     }
 }
