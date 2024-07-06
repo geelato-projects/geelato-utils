@@ -12,7 +12,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>geelato-utils</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.2-SNAPSHOT</version>
 
     <dependencies>
         <!-- LOGGING begin -->
