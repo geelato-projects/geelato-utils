@@ -12,7 +12,6 @@ import java.util.Map;
 /**
  * @author diabl
  * @description: Schema Util
- * @date 2023/6/16 12:00
  */
 public class SchemaUtils implements Serializable {
 

@@ -3,7 +3,6 @@ package org.geelato.utils;
 /**
  * @author diabl
  * @description: 随机字符
- * @date 2023/8/6 9:26
  */
 public class UUIDUtils {
     private static final String CHARS_NUMBER = "0123456789";
